@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scripts</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .delete-icon {
+            display: none;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+        .post {
+            position: relative;
+            padding: 15px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+        }
+        .post:hover .delete-icon {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container d-flex justify-content-between align-items-center">
+            <!-- Links de navegação -->
+            <div class="nav-links d-flex align-items-center">
+                <a href="index.html" class="btn btn-outline-primary mx-2">Início</a>
+                <a href="aulas.html" class="btn btn-outline-primary mx-2">Aulas</a>
+                <a href="scripts.html" class="btn btn-outline-primary mx-2">Scripts</a>
+                <a href="contato.html" class="btn btn-outline-primary mx-2">Contato</a>
+            </div>
+    
+            <!-- Formulário de login e logout -->
+            <div class="d-flex align-items-center">
+                <span id="welcomeMessage" class="ml-3" style="display: none;">Olá, <span id="welcomeUsername"></span></span>
+                <form class="form-inline mb-0">
+                    <input id="username" class="form-control mr-sm-2" type="text" placeholder="Usuário">
+                    <input id="password" class="form-control mr-sm-2" type="password" placeholder="Senha">
+                    <button id="loginButton" class="btn btn-outline-success my-2 my-sm-0" type="button">Login</button>
+                    <button id="logoutButton" class="btn btn-outline-danger my-2 my-sm-0" type="button" style="display: none;">Logout</button>
+                </form>                
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Scripts</h1>
+        <p>Aqui você encontrará postagens sobre scripts e conteúdos relacionados.</p>
+        
+        <div id="postForm" class="mb-4" style="display: none;">
+            <h3>Novo Script</h3>
+            <form id="postScriptForm">
+                <div class="form-group">
+                    <label for="titulo">Título:</label>
+                    <input id="titulo" class="form-control" type="text" placeholder="Título" required>
+                </div>
+                <div class="form-group">
+                    <label for="conteudo">Conteúdo:</label>
+                    <textarea id="conteudo" class="form-control" rows="4" placeholder="Conteúdo" required></textarea>
+                </div>
+                <button id="postButton" class="btn btn-primary" type="button">Postar</button>
+            </form>
+        </div>
+
+        <h3>Postagens</h3>
+        <div id="postsContainer" class="posts-list">
+            <!-- As postagens serão preenchidas pelo JavaScript -->
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2024 <a href="https://devtiago.netlify.app/" target="_blank" rel="noopener noreferrer">Tiago Luis Custódio</a>. Todos os direitos reservados.</p>
+        <button id="scrollToTop" class="btn btn-primary" style="display: none;">&uarr;</button>
+    </footer>    
+
+    <script src="main.js"></script>
+</body>
+</html>
