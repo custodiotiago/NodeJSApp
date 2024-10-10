@@ -7,7 +7,7 @@ const logger = require("morgan");
 const { format } = require("date-fns");
 const cors = require('cors'); // Importa o middleware CORS
 
-const configData = require("./connection"); // Ajustado para o novo modelo
+const configData = require("./config/connection");
 const userRouter = require('./routes/users');
 
 async function getApp() {
