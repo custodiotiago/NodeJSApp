@@ -1,8 +1,8 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../config/connection').getConnectionInfo();
+const sequelize = require('../config/connection').getConnectionInfo(); // Certifique-se de que este arquivo está exportando a conexão
 
 const User = sequelize.define('User', {
-  name: {
+  username: {
     type: DataTypes.STRING,
     allowNull: false
   },
@@ -11,17 +11,10 @@ const User = sequelize.define('User', {
     allowNull: false,
     unique: true
   },
-  password: {
-    type: DataTypes.STRING,
-    allowNull: false
-  }
+  // Adicione mais campos conforme necessário
 }, {
   tableName: 'users',
   timestamps: false
 });
-
-(async () => {
-  await sequelize.sync(); // Cria a tabela se ela não existir
-})();
 
 module.exports = User;

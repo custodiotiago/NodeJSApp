@@ -1,17 +1,15 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('./index'); // Importando o sequelize do index.js
+const express = require('express');
+const router = express.Router();
+const User = require('../models/user'); // Importando o modelo corretamente
 
-const User = sequelize.define('User', {
-  username: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  email: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    unique: true,
-  },
-  // Outros campos conforme necessário
+// Exemplo de rota para obter todos os usuários
+router.get('/', async (req, res, next) => {
+  try {
+    const users = await User.findAll();
+    res.json(users);
+  } catch (error) {
+    next(error);
+  }
 });
 
-module.exports = User;
+module.exports = router;
