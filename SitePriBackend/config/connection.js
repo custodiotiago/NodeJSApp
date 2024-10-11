@@ -1,5 +1,5 @@
 require("dotenv").config();
-const mongoose = require("mongoose");
+const { Sequelize } = require("sequelize");
 
 async function getConnectionInfo() {
   const DATABASE_URL = process.env.DATABASE_URL;
@@ -9,10 +9,19 @@ async function getConnectionInfo() {
     throw new Error("No value in DATABASE_URL in env var");
   }
 
-  return {
-    DATABASE_URL,
-    DATABASE_NAME
-  };
+  const sequelize = new Sequelize(DATABASE_URL, {
+    dialect: 'postgres',
+    logging: false, // Desativa logs de SQL no console
+  });
+
+  try {
+    await sequelize.authenticate();
+    console.log('Connection has been established successfully.');
+  } catch (error) {
+    console.error('Unable to connect to the database:', error);
+  }
+
+  return sequelize;
 }
 
 module.exports = {

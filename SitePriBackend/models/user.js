@@ -1,21 +1,27 @@
-const mongoose = require('mongoose');
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/connection').getConnectionInfo();
 
-const userSchema = new mongoose.Schema({
+const User = sequelize.define('User', {
   name: {
-    type: String,
-    required: true
+    type: DataTypes.STRING,
+    allowNull: false
   },
   email: {
-    type: String,
-    required: true,
+    type: DataTypes.STRING,
+    allowNull: false,
     unique: true
   },
   password: {
-    type: String,
-    required: true
+    type: DataTypes.STRING,
+    allowNull: false
   }
+}, {
+  tableName: 'users',
+  timestamps: false
 });
 
-const User = mongoose.model('User', userSchema);
+(async () => {
+  await sequelize.sync(); // Cria a tabela se ela não existir
+})();
 
 module.exports = User;

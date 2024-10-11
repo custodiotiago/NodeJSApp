@@ -6,8 +6,7 @@ const router = express.Router();
 // Criar um novo usuário
 router.post('/', async (req, res) => {
   try {
-    const user = new User(req.body);
-    await user.save();
+    const user = await User.create(req.body); // Utiliza Sequelize para criar o usuário
     res.status(201).json(user);
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -17,7 +16,7 @@ router.post('/', async (req, res) => {
 // Obter todos os usuários
 router.get('/', async (req, res) => {
   try {
-    const users = await User.find();
+    const users = await User.findAll(); // Utiliza Sequelize para buscar todos os usuários
     res.status(200).json(users);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -27,7 +26,7 @@ router.get('/', async (req, res) => {
 // Obter um usuário por ID
 router.get('/:id', async (req, res) => {
   try {
-    const user = await User.findById(req.params.id);
+    const user = await User.findByPk(req.params.id); // Utiliza Sequelize para buscar um usuário por ID
     if (!user) {
       return res.status(404).json({ message: 'Usuário não encontrado' });
     }
@@ -40,10 +39,12 @@ router.get('/:id', async (req, res) => {
 // Atualizar um usuário por ID
 router.put('/:id', async (req, res) => {
   try {
-    const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const user = await User.findByPk(req.params.id);
     if (!user) {
       return res.status(404).json({ message: 'Usuário não encontrado' });
     }
+
+    await user.update(req.body); // Utiliza Sequelize para atualizar o usuário
     res.status(200).json(user);
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -53,10 +54,12 @@ router.put('/:id', async (req, res) => {
 // Deletar um usuário por ID
 router.delete('/:id', async (req, res) => {
   try {
-    const user = await User.findByIdAndDelete(req.params.id);
+    const user = await User.findByPk(req.params.id);
     if (!user) {
       return res.status(404).json({ message: 'Usuário não encontrado' });
     }
+
+    await user.destroy(); // Utiliza Sequelize para deletar o usuário
     res.status(200).json({ message: 'Usuário deletado' });
   } catch (error) {
     res.status(500).json({ message: error.message });

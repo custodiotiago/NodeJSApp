@@ -1,20 +1,16 @@
 const createError = require("http-errors");
 const express = require("express");
-const mongoose = require("mongoose");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const { format } = require("date-fns");
-const cors = require('cors'); // Importa o middleware CORS
-
-const configData = require("./config/connection");
+const cors = require('cors');
 const userRouter = require('./routes/users');
+const configData = require("./config/connection");
 
 async function getApp() {
-
   // Conectar ao banco de dados
-  var connectionInfo = await configData.getConnectionInfo();
-  mongoose.connect(connectionInfo.DATABASE_URL);
+  await configData.getConnectionInfo();
 
   const app = express();
 
@@ -62,7 +58,7 @@ async function getApp() {
 function normalizePort(val) {
   var port = parseInt(val, 10);
 
-  if (isNaN(port)) {
+  if (isNaN(val)) {
     return val;
   }
 
