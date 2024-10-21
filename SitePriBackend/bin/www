@@ -1,0 +1,17 @@
+const app = require('../app');
+const http = require('http');
+
+// Cria o servidor HTTP usando a aplicação express
+const server = http.createServer(app);
+
+function startServer() {
+  const port = normalizePort(process.env.PORT || '3000');
+  app.set('port', port);
+
+  server.listen(port);
+  server.on('error', onError);
+  server.on('listening', onListening);
+}
+
+// Inicia o servidor
+startServer();
